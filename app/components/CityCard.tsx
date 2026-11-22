@@ -29,7 +29,7 @@ export default function CityCard({
           index % 2 === 0
             ? "flex-col-reverse md:flex-row-reverse"
             : "md:flex-row  flex-col"
-        }  gap-10 my-40 border border-gray-200 p-10 rounded-4xl shadow-xl/20 font-serif`}
+        }  gap-10 my-40 border border-gray-200 p-5 md:p-10 rounded-4xl shadow-xl/20 font-serif`}
       >
         <div className="w-full md:w-[40%] h-auto overflow-hidden rounded-2xl ">
           <Image
@@ -45,8 +45,13 @@ export default function CityCard({
             <p className="text-4xl font-semibold ">{city.name}</p>
             <p>{city.region}</p>
           </div>
-          <p className="mb-10 underline max-w-sm">{city.tagline}</p>
-          <button className="bg-black text-white mr-auto py-1.5 px-8 rounded-xl cursor-pointer">
+          <p className="mb-5 md:mb-10 underline max-w-sm text-gray-600">
+            {city.tagline}
+          </p>
+          <button
+            className="bg-black text-white mr-auto 
+          py-1.5 px-8 rounded-lg cursor-pointer"
+          >
             Detail
           </button>
         </div>

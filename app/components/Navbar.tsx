@@ -26,7 +26,7 @@ export default function Navbar() {
       }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
       className={clsx(
-        "bg-transparent w-full p-5 fixed top-0 right-0 left-0 z-50",
+        "bg-transparent w-full p-3 md:p-5 fixed top-0 right-0 left-0 z-50",
         pathName === "/"
           ? "text-white"
           : "text-black border-b border-zinc-300 duration-200 opacity-95 bg-white",
@@ -36,7 +36,7 @@ export default function Navbar() {
         <Link href={"/"}>
           <p className="text-3xl font-black italic font-bebas">Genius Travel</p>
         </Link>
-        <div className="flex gap-10 items-center">
+        <div className="flex gap-5 md:gap-10 items-center">
           <Link href={"/blog"}>
             <p
               className={clsx(

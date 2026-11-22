@@ -57,7 +57,7 @@ function CityCarousel() {
             }}
           >
             <div className="absolute inset-0 bg-black/10" />
-            <h2 className="relative z-10 font-bebas text-7xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight italic">
+            <h2 className="relative z-10 font-bebas text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight italic">
               {city.name}
             </h2>
           </div>
