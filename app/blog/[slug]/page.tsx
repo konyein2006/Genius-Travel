@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getCityBySlug } from "@/lib/cities";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -11,22 +12,11 @@ interface CityPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({
-  params,
-}: CityPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const city = getCityBySlug(slug);
-  if (!city) {
-    return { title: "City Not Found" };
-  }
+export const metadata: Metadata = {
+  title: "Blog",
+};
 
-  return {
-    title: `${city.name} | Genius Travel`,
-    description: city.tagline,
-  };
-}
-
-export default async function Page({ params }: CityPageProps) {
+async function CityContent({ params }: CityPageProps) {
   const { slug } = await params;
   const city = getCityBySlug(slug);
   if (!city) {
@@ -39,14 +29,14 @@ export default async function Page({ params }: CityPageProps) {
   return (
     <div className="my-20 max-w-5xl mx-auto py-10">
       <Link
-        href={"/blog"}
-        className="inline-flex gap-3 items-center transition-all duration-200 group w-fit font-light hover:underline text-black "
+        href="/blog"
+        className="inline-flex gap-3 items-center transition-all duration-200 group w-fit font-light hover:underline text-black"
       >
-        <GoArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1 " />{" "}
-        Back to all citites
+        <GoArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />{" "}
+        Back to all cities
       </Link>
 
-      <header className=" my-10">
+      <header className="my-10">
         <p className="text-4xl font-bebas font-bold">{city.tagline}</p>
         <p className="my-5 italic">
           <strong>Best time to visit: </strong>
@@ -63,6 +53,7 @@ export default async function Page({ params }: CityPageProps) {
           className="rounded-xl"
         />
       </div>
+
       <div>
         <p className="text-4xl font-bold mt-10 mb-3">{city.name}</p>
         <p className="text-sm mb-10">{city.region}</p>
@@ -89,5 +80,13 @@ export default async function Page({ params }: CityPageProps) {
         />
       </div>
     </div>
+  );
+}
+
+export default function Page({ params }: CityPageProps) {
+  return (
+    <Suspense fallback={<div className="my-20 max-w-5xl mx-auto py-10" />}>
+      <CityContent params={params} />
+    </Suspense>
   );
 }

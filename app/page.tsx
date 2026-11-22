@@ -1,10 +1,20 @@
 "use client";
 
-import Image from "next/image";
+import { useSyncExternalStore } from "react";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/autoplay";
+
+const emptySubscribe = () => () => {};
+
+function useIsMounted() {
+  return useSyncExternalStore(
+    emptySubscribe,
+    () => true, // Client value
+    () => false, // Server / prerender value
+  );
+}
 
 const CITIES = [
   { name: "Bagan", src: "/images/cities/bagan.jpg" },
@@ -20,6 +30,12 @@ const CITIES = [
 ];
 
 function CityCarousel() {
+  const mounted = useIsMounted();
+
+  if (!mounted) {
+    return <div className="h-full w-full bg-black" />;
+  }
+
   return (
     <Swiper
       modules={[Autoplay]}
@@ -32,20 +48,19 @@ function CityCarousel() {
       speed={500}
       className="h-full w-full"
     >
-      {CITIES.map((city, index) => (
-        <SwiperSlide key={city.name} className="relative h-full w-full">
-          <Image
-            src={city.src}
-            alt={city.name}
-            fill
-            sizes="100vw"
-            priority={index === 0}
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-black/20" />
-          <h2 className="relative z-10 flex h-full w-full items-center justify-center font-bebas text-7xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight italic">
-            {city.name}
-          </h2>
+      {CITIES.map((city) => (
+        <SwiperSlide key={city.name} className="h-full w-full">
+          <div
+            className="relative flex h-full w-full flex-col items-center justify-center bg-cover bg-center bg-no-repeat transition-all duration-500"
+            style={{
+              backgroundImage: `url(${city.src})`,
+            }}
+          >
+            <div className="absolute inset-0 bg-black/10" />
+            <h2 className="relative z-10 font-bebas text-7xl md:text-8xl lg:text-9xl font-extrabold text-white tracking-tight italic">
+              {city.name}
+            </h2>
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>

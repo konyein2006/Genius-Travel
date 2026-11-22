@@ -8,6 +8,7 @@ import {
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import { Toaster } from "@/components/ui/toast";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,7 +43,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${jakarta.variable} h-full antialiased`}
     >
       <body className="min-h-full  overflow-x-hidden">
-        <Navbar />
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
         {children}
         <Toaster />
       </body>
