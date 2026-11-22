@@ -27,7 +27,7 @@ async function CityContent({ params }: CityPageProps) {
   const contentHtml = processedContent.toString();
 
   return (
-    <div className="my-20 max-w-5xl mx-auto py-10">
+    <div className="my-20 max-w-5xl mx-auto p-5">
       <Link
         href="/blog"
         className="inline-flex gap-3 items-center transition-all duration-200 group w-fit font-light hover:underline text-black"
@@ -36,7 +36,7 @@ async function CityContent({ params }: CityPageProps) {
         Back to all cities
       </Link>
 
-      <header className="my-10">
+      <header className="my-5">
         <p className="text-4xl font-bebas font-bold">{city.tagline}</p>
         <p className="my-5 italic">
           <strong>Best time to visit: </strong>
